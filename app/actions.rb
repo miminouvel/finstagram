@@ -52,3 +52,11 @@ end
     session[:user_id] = nil
     redirect to('/')
   end
+
+  get '/finstagram_posts/new' do
+    erb(:"finstagram_posts/new")
+  end
+
+post '/finstagram_posts' do
+    params.to_s
+end
