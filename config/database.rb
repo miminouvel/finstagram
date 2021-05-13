@@ -1,19 +1,25 @@
-configure do
-  # Log queries to STDOUT in development
-  if Sinatra::Application.development?
-    ActiveRecord::Base.logger = Logger.new(STDOUT)
-  end
+# A sample Gemfile
+source "https://rubygems.org"
 
-  set :database, {
-    adapter: "sqlite3",
-    database: "db/db.sqlite3"
-  }
+gem 'rake'
+gem 'activesupport'
+gem 'activerecord', '~> 4.2.0'
 
-  # Load all models from app/models, using autoload instead of require
-  # See http://www.rubyinside.com/ruby-techniques-revealed-autoload-1652.html
-  Dir[APP_ROOT.join('app', 'models', '*.rb')].each do |model_file|
-    filename = File.basename(model_file).gsub('.rb', '')
-    autoload ActiveSupport::Inflector.camelize(filename), model_file
-  end
+gem 'sinatra'
+gem 'sinatra-contrib'
+gem 'sinatra-activerecord'
 
+gem 'puma'
+gem 'tux'
+
+gem 'pry'
+
+group :development, :test do
+  gem 'shotgun'
+  gem 'sqlite3', '~> 1.3.6'
+end
+
+group :production do 
+  gem 'rails_12factor'
+  gem 'pg', '~> 0.20'
 end
